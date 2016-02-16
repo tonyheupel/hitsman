@@ -28,10 +28,13 @@ type Provider struct {
 }
 
 func (p Provider) getSongs(results chan []Song) {
+	log.Println(fmt.Sprintf("Getting songs from %s...", p.Name))
 	doc, err := goquery.NewDocument(p.URL)
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	log.Println(fmt.Sprintf("Processing songs from %s...", p.Name))
 
 	var songs []Song
 	doc.Find(p.ItemRootSelector).Each(func(i int, s *goquery.Selection) {
@@ -44,6 +47,7 @@ func (p Provider) getSongs(results chan []Song) {
 		})
 	})
 
+	log.Println(fmt.Sprintf("Done processing songs from %s...", p.Name))
 	results <- songs
 }
 
@@ -52,7 +56,6 @@ func getSongsFromProviders(providers []Provider) []Song {
 	providerResponses := make(chan []Song, numProviders)
 
 	for _, provider := range providers {
-		fmt.Println("Getting songs for provider: ", provider)
 		go provider.getSongs(providerResponses)
 	}
 
@@ -86,6 +89,7 @@ func writeSongsToFile(filename string, songs []Song) {
 }
 
 func main() {
+	log.Println("Getting list of providers from providers.yml...")
 	data, err := ioutil.ReadFile("./providers.yml")
 	if err != nil {
 		log.Fatal(err)
@@ -96,9 +100,12 @@ func main() {
 		log.Fatal(err)
 	}
 
-	fmt.Println("Providers:", providers)
+	log.Println(fmt.Sprintf("Found %d providers...", len(providers)))
 	songs := getSongsFromProviders(providers)
 
+	filename := "songs.csv" // TODO: Make this configurable
+
+	log.Println(fmt.Sprintf("Writing %d songs to %s...", len(songs), filename))
 	writeSongsToFile("songs.csv", songs)
-	fmt.Printf("%+v\n", songs)
+	log.Println("Done!")
 }
