@@ -1,0 +1,41 @@
+-
+  name: All Access
+  url: http://www.allaccess.com/alternative/future-releases
+  root_selector: "#body>ul>li:nth-child(1)>ul:nth-child(2)>li>div>div ul[class*='song-rows']>li[class*='artist']"
+  title_selector: "b"
+  artist_selector: "h5"
+
+-
+  name: FMQB
+  url: http://fmqb.com/specialty.asp
+  root_selector: "tr:nth-child(6)>td>table>tbody>tr"
+  title_selector: "td:nth-child(3)"
+  artist_selector: "td:nth-child(2)>strong"
+
+-
+  name: BDS Radio Charts
+  url: http://charts.bdsradio.com/bdsradiocharts/charts.aspx?formatid=7
+  root_selector: "#grdMostAdded>table>tbody>tr"
+  title_selector: "span:nth-child(2)"
+  artist_selector: "span:nth-child(1)"
+
+# -
+#   name: All Access
+#   url: http://www.allaccess.com/alternative/future-releases
+#   root_xpath: //*[@id='body']/ul/li[1]/ul[2]/li/div/div//ul[contains(@class,'song-rows')]/li[contains(@class,'artist')]
+#   title_xpath: .//b
+#   artist_xpath: .//h5
+#
+# -
+#   name: FMQB
+#   url: http://fmqb.com/specialty.asp
+#   root_xpath: //tr[6]/td/table/tbody/tr
+#   title_xpath: .//td[3]
+#   artist_xpath: .//td[2]/strong
+#
+# -
+#   name: BDS Radio Charts
+#   url: http://charts.bdsradio.com/bdsradiocharts/charts.aspx?formatid=7
+#   root_xpath: //*[@id='grdMostAdded']/table/tbody/tr
+#   title_xpath: .//span[2]
+#   artist_xpath: .//span[1]
